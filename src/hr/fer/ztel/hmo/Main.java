@@ -4,7 +4,7 @@ public class Main {
 	
 	public static void main(String[] args) {
 		
-		Utility.readFromFile("HMO-projekt_instanca_problema.txt");
+		ProblemInstance instance = Utility.readInstanceFromFile("HMO-projekt_instanca_problema.txt");
 	}
 
 }

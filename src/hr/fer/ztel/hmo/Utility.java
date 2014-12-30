@@ -15,7 +15,8 @@ import java.io.Writer;
 
 public class Utility {
 	
-	public static void readFromFile(String filename) {
+	public static ProblemInstance readInstanceFromFile(String filename) {
+		ProblemInstance instance = null;
 		try {
 			BufferedReader br = new BufferedReader(
 					new InputStreamReader(
@@ -25,6 +26,7 @@ public class Utility {
 			String line = null;
 			int usersNum = Integer.parseInt(br.readLine());
 			int warehousesNum = Integer.parseInt(br.readLine());
+			instance = new ProblemInstance(usersNum, warehousesNum);
 			
 			br.readLine();  // blank line
 			
@@ -33,6 +35,7 @@ public class Utility {
 				String[] data = line.split("\\s+");
 				int x = Integer.parseInt(data[0]);
 				int y = Integer.parseInt(data[1]);
+				instance.addWarehouse(new Warehouse(x, y));
 			}
 			
 			br.readLine();  // blank line
@@ -42,32 +45,39 @@ public class Utility {
 				String[] data = line.split("\\s+");
 				int x = Integer.parseInt(data[0]);
 				int y = Integer.parseInt(data[1]);
+				instance.addUser(new User(x, y));
 			}
 			
 			br.readLine();  // blank line
 
 			int vehicleCapacity = Integer.parseInt(br.readLine());
+			instance.setVehicleCapacity(vehicleCapacity);
 			
 			br.readLine();  // blank line
 			
 			for (int i = 0; i < warehousesNum; ++i) {
 				int capacity = Integer.parseInt(br.readLine());
+				instance.getWarehouses().get(i).setCapacity(capacity);
 			}
 			
 			br.readLine();  // blank line
 			
 			for (int i = 0; i < usersNum; ++i) {
 				int demand = Integer.parseInt(br.readLine());
+				instance.getUsers().get(i).setDemand(demand);
 			}
 			
 			br.readLine();  // blank line
 			for (int i = 0; i < warehousesNum; ++i) {
 				int openingCost = Integer.parseInt(br.readLine());
+				instance.getWarehouses().get(i).setOpeningCost(openingCost);
 			}
 			
 			br.readLine();
 			int vehicleCost = Integer.parseInt(br.readLine());
-			System.out.println(vehicleCost);
+			instance.setVehicleCost(vehicleCost);
+			
+			br.close();
 			
 		} catch (UnsupportedEncodingException | FileNotFoundException e) {
 			e.printStackTrace();
@@ -76,6 +86,7 @@ public class Utility {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		return instance;
 	}
 	
 	public static void writeToFile(String filename) {
