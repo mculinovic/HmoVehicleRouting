@@ -1,0 +1,58 @@
+package hr.fer.ztel.hmo;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.io.Writer;
+
+public class Utility {
+	
+	public static void readFromFile(String filename) {
+		try {
+			BufferedReader br = new BufferedReader(
+					new InputStreamReader(
+					new BufferedInputStream(
+					new FileInputStream(filename)),"UTF-8"));
+			
+			String line = null;
+			int usersNum = Integer.parseInt(br.readLine());
+			int warehousesNum = Integer.parseInt(br.readLine());
+			
+			// blank line
+			br.readLine();
+			
+			for (int i = 0; i < warehousesNum; ++i) {
+				
+			}
+			
+			
+			
+		} catch (UnsupportedEncodingException | FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void writeToFile(String filename) {
+		try {
+			Writer bw = new BufferedWriter(
+					new OutputStreamWriter(
+					new BufferedOutputStream(
+					new FileOutputStream("ime2.txt")),"UTF-8"));
+		} catch (UnsupportedEncodingException | FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+}
