@@ -26,14 +26,48 @@ public class Utility {
 			int usersNum = Integer.parseInt(br.readLine());
 			int warehousesNum = Integer.parseInt(br.readLine());
 			
-			// blank line
-			br.readLine();
+			br.readLine();  // blank line
 			
 			for (int i = 0; i < warehousesNum; ++i) {
-				
+				line = br.readLine().trim();
+				String[] data = line.split("\\s+");
+				int x = Integer.parseInt(data[0]);
+				int y = Integer.parseInt(data[1]);
 			}
 			
+			br.readLine();  // blank line
 			
+			for (int i = 0; i < usersNum; ++i) {
+				line = br.readLine().trim();
+				String[] data = line.split("\\s+");
+				int x = Integer.parseInt(data[0]);
+				int y = Integer.parseInt(data[1]);
+			}
+			
+			br.readLine();  // blank line
+
+			int vehicleCapacity = Integer.parseInt(br.readLine());
+			
+			br.readLine();  // blank line
+			
+			for (int i = 0; i < warehousesNum; ++i) {
+				int capacity = Integer.parseInt(br.readLine());
+			}
+			
+			br.readLine();  // blank line
+			
+			for (int i = 0; i < usersNum; ++i) {
+				int demand = Integer.parseInt(br.readLine());
+			}
+			
+			br.readLine();  // blank line
+			for (int i = 0; i < warehousesNum; ++i) {
+				int openingCost = Integer.parseInt(br.readLine());
+			}
+			
+			br.readLine();
+			int vehicleCost = Integer.parseInt(br.readLine());
+			System.out.println(vehicleCost);
 			
 		} catch (UnsupportedEncodingException | FileNotFoundException e) {
 			e.printStackTrace();
