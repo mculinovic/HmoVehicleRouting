@@ -35,7 +35,7 @@ public class Utility {
 				String[] data = line.split("\\s+");
 				int x = Integer.parseInt(data[0]);
 				int y = Integer.parseInt(data[1]);
-				instance.addWarehouse(new Warehouse(x, y));
+				instance.addWarehouse(new Warehouse(i, x, y));
 			}
 			
 			br.readLine();  // blank line
@@ -45,7 +45,7 @@ public class Utility {
 				String[] data = line.split("\\s+");
 				int x = Integer.parseInt(data[0]);
 				int y = Integer.parseInt(data[1]);
-				instance.addUser(new User(x, y));
+				instance.addUser(new User(i, x, y));
 			}
 			
 			br.readLine();  // blank line

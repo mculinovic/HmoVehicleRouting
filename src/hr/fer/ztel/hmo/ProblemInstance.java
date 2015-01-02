@@ -11,6 +11,9 @@ public class ProblemInstance {
 	private List<User> users;
 	private List<Warehouse> warehouses;
 	
+	public int[][] usersDist;
+	public int[][] whUsersDist;
+	
 	private int vehicleCapacity;
 	private int vehicleCost;
 	
@@ -21,6 +24,8 @@ public class ProblemInstance {
 		this.warehousesNum = warehousesNum;
 		this.users = new ArrayList<>();
 		this.warehouses = new ArrayList<>();
+		this.usersDist = new int[usersNum][usersNum];
+		this.whUsersDist = new int[warehousesNum][usersNum];
 	}
 
 
@@ -88,6 +93,29 @@ public class ProblemInstance {
 
 	public void setVehicleCost(int vehicleCost) {
 		this.vehicleCost = vehicleCost;
+	}
+	
+	public void precalculateDistances() {
+		// user to user
+		for (int i = 0; i < usersNum; ++i) {
+			for (int j = i + 1; j < usersNum; ++j) {
+				int x_diff = users.get(i).getX() - users.get(j).getX();
+				int y_diff = users.get(i).getY() - users.get(j).getY();
+				double value = Math.sqrt(x_diff * x_diff + y_diff * y_diff);
+				usersDist[i][j] = (int) Math.floor(100.0 * value);
+				usersDist[j][i] = usersDist[i][j];
+			}
+		}
+		
+		// warehouse to user
+		for (int i = 0; i < warehousesNum; ++i) {
+			for (int j = 0; j < usersNum; ++j) {
+				int x_diff = warehouses.get(i).getX() - users.get(j).getX();
+				int y_diff = warehouses.get(i).getY() - users.get(j).getY();
+				double value = Math.sqrt(x_diff * x_diff + y_diff * y_diff);
+				whUsersDist[i][j] = (int) Math.floor(100.0 * value);
+			}
+		}
 	}
 	
 }

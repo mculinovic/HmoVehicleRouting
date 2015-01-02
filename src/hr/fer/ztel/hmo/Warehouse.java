@@ -2,15 +2,26 @@ package hr.fer.ztel.hmo;
 
 public class Warehouse {
 	
+	private int id;
 	private int x;
 	private int y;
 	private int capacity;
 	private int openingCost;
 	
-	public Warehouse(int x, int y) {
+	public Warehouse(int id, int x, int y) {
 		super();
+		this.id = id;
 		this.x = x;
 		this.y = y;
+	}
+	
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public int getX() {
@@ -56,7 +67,7 @@ public class Warehouse {
 	
 	@Override
 	public int hashCode() {
-		return Integer.valueOf(x) ^ Integer.valueOf(y)
+		return Integer.valueOf(id) ^ Integer.valueOf(x) ^ Integer.valueOf(y)
 				^ Integer.valueOf(capacity) ^ Integer.valueOf(openingCost);
 	}
 }
