@@ -1,7 +1,9 @@
 package hr.fer.ztel.hmo;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.TreeSet;
 
 public class ProblemInstance {
 	
@@ -116,6 +118,30 @@ public class ProblemInstance {
 				whUsersDist[i][j] = (int) Math.floor(100.0 * value);
 			}
 		}
+	}
+
+
+	public TreeSet<User> getDistFromWh(final int id) {
+		TreeSet<User> distances = new TreeSet<User>(new Comparator<User>() {		
+			@Override
+			public int compare(User o1, User o2) {
+				if (whUsersDist[id][o1.getId()] < whUsersDist[id][o2.getId()])
+					return -1;
+				if (whUsersDist[id][o1.getId()] > whUsersDist[id][o2.getId()])
+					return 1;
+				if (whUsersDist[id][o1.getId()] == whUsersDist[id][o2.getId()]) {
+					if (o1.getId() < o2.getId()) return -1;
+					else return 1;
+				}
+				return 0;
+			}
+		});
+		
+		for (int i = 0; i < usersNum; ++i) {
+			distances.add(users.get(i));
+		}
+		if (distances.size() != usersNum) System.out.println("Error: comparator not working");
+		return distances;
 	}
 	
 }

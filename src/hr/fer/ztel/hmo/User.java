@@ -51,7 +51,8 @@ public class User {
 		if(obj == null) return false;
 		if(!(obj instanceof User)) return false;
 		User other = (User) obj;
-		return Integer.valueOf(x).equals(Integer.valueOf(other.x))
+		return Integer.valueOf(id).equals(Integer.valueOf(other.id))
+				&& Integer.valueOf(x).equals(Integer.valueOf(other.x))
 			   && Integer.valueOf(y).equals(Integer.valueOf(other.y));
 	}
 	

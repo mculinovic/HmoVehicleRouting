@@ -40,4 +40,8 @@ public class Cycle {
 				this.users.equals(other.users);
 	}
 
+	public void addUser(int id) {
+		users.add(id);
+	}
+
 }
