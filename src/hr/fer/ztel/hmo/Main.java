@@ -8,7 +8,8 @@ public class Main {
 		instance.precalculateDistances();
 		Solution sol = Solver.generateInitialSolution(instance);
 		
-		System.out.println(sol.getCycles().size());
+		System.out.println(sol.getCost());
+		Utility.writeToFile("res-projekt.txt", sol);
 	}
 
 }

@@ -6,6 +6,7 @@ public class Warehouse {
 	private int x;
 	private int y;
 	private int capacity;
+	private int remainingCapacity;
 	private int openingCost;
 	
 	public Warehouse(int id, int x, int y) {
@@ -56,6 +57,15 @@ public class Warehouse {
 		this.openingCost = openingCost;
 	}
 	
+	public int getRemainingCapacity() {
+		return remainingCapacity;
+	}
+	
+
+	public void setRemainingCapacity(int remainingCapacity) {
+		this.remainingCapacity = remainingCapacity;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if(obj == null) return false;

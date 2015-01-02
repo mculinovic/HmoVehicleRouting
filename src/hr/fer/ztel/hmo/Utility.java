@@ -58,6 +58,7 @@ public class Utility {
 			for (int i = 0; i < warehousesNum; ++i) {
 				int capacity = Integer.parseInt(br.readLine());
 				instance.getWarehouses().get(i).setCapacity(capacity);
+				instance.getWarehouses().get(i).setRemainingCapacity(capacity);
 			}
 			
 			br.readLine();  // blank line
@@ -89,14 +90,17 @@ public class Utility {
 		return instance;
 	}
 	
-	public static void writeToFile(String filename) {
+	public static void writeToFile(String filename, Solution sol) {
 		try {
 			Writer bw = new BufferedWriter(
 					new OutputStreamWriter(
 					new BufferedOutputStream(
-					new FileOutputStream("ime2.txt")),"UTF-8"));
+					new FileOutputStream(filename)),"UTF-8"));
+			bw.write(sol.toString());
+			bw.close();
 		} catch (UnsupportedEncodingException | FileNotFoundException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}

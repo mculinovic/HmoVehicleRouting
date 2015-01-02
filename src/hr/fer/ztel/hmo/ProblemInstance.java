@@ -143,5 +143,29 @@ public class ProblemInstance {
 		if (distances.size() != usersNum) System.out.println("Error: comparator not working");
 		return distances;
 	}
+
+
+	public TreeSet<User> getDistFromUser(final int id) {
+		TreeSet<User> distances = new TreeSet<User>(new Comparator<User>() {		
+			@Override
+			public int compare(User o1, User o2) {
+				if (usersDist[id][o1.getId()] < usersDist[id][o2.getId()])
+					return -1;
+				if (usersDist[id][o1.getId()] > usersDist[id][o2.getId()])
+					return 1;
+				if (usersDist[id][o1.getId()] == usersDist[id][o2.getId()]) {
+					if (o1.getId() < o2.getId()) return -1;
+					else return 1;
+				}
+				return 0;
+			}
+		});
+		
+		for (int i = 0; i < usersNum; ++i) {
+			distances.add(users.get(i));
+		}
+		if (distances.size() != usersNum) System.out.println("Error: comparator not working");
+		return distances;
+	}
 	
 }
