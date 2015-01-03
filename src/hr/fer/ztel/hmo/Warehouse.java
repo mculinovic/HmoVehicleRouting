@@ -8,12 +8,14 @@ public class Warehouse {
 	private int capacity;
 	private int remainingCapacity;
 	private int openingCost;
+	boolean closed;
 	
 	public Warehouse(int id, int x, int y) {
 		super();
 		this.id = id;
 		this.x = x;
 		this.y = y;
+		this.closed = false;
 	}
 	
 
@@ -65,6 +67,15 @@ public class Warehouse {
 	public void setRemainingCapacity(int remainingCapacity) {
 		this.remainingCapacity = remainingCapacity;
 	}
+
+	public boolean isClosed() {
+		return closed;
+	}
+
+	public void setClosed(boolean closed) {
+		this.closed = closed;
+	}
+
 
 	@Override
 	public boolean equals(Object obj) {

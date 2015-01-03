@@ -10,11 +10,18 @@ public class Solution {
 	private List<Cycle> cycles;
 	private int cost;
 	private ProblemInstance instance;
+	private List<Integer> remainingCapacities;
+	private Set<Integer> closed;
 	
 	public Solution(ProblemInstance instance) {
 		this.instance = instance;
 		cycles = new ArrayList<>();
 		cost = -1;
+		remainingCapacities = new ArrayList<>();
+		closed = new HashSet<>();
+		for (Warehouse wh: instance.getWarehouses()) {
+			remainingCapacities.add(wh.getCapacity());
+		}
 	}
 
 	public List<Cycle> getCycles() {
@@ -43,6 +50,23 @@ public class Solution {
 			cost += instance.getVehicleCost();
 			cost += c.getRouteCost();
 		}
+	}
+	
+	public int getRemainingCapacity(int index) {
+		return remainingCapacities.get(index);
+	}
+	
+	public void setRemainingCapacity(int index, int value) {
+		remainingCapacities.set(index, value);
+	}
+	
+	public void setClosed(int id, boolean value) {
+		if (!value) closed.remove(id);
+		else closed.add(id);
+	}
+	
+	public boolean isClosed(int id) {
+		return closed.contains(id);
 	}
 	
 	@Override

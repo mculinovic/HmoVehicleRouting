@@ -54,12 +54,10 @@ public class Cycle {
 	}
 	
 	public void generateInitialRoute() {
-		cost = 0;
 		TreeSet<User> allUsers = instance.getDistFromWh(warehouse);
 		for (User user: allUsers) {
 			if (users.contains(user.getId())) {
 				route.add(user.getId());
-				cost += instance.whUsersDist[warehouse][user.getId()];
 				break;
 			}
 		}
@@ -69,17 +67,24 @@ public class Cycle {
 			for (User user: userDistances) {
 				if (users.contains(user.getId()) && !route.contains(user.getId())) {
 					route.add(user.getId());
-					cost += instance.usersDist[next][user.getId()];
 					next = user.getId();
 					break;
 				}
 			}
 		}
-		cost += instance.whUsersDist[warehouse][next];
+	}
+	
+	private void calculateCost() {
+		cost = 0;
+		cost += instance.whUsersDist[warehouse][route.get(0)];
+		cost += instance.whUsersDist[warehouse][route.get(route.size() - 1)];
+		for (int i = 0; i < route.size() - 1; ++i) {
+			cost += instance.usersDist[route.get(i)][route.get(i + 1)];
+		}
 	}
 
 	public int getRouteCost() {
-		if (cost == -1) generateInitialRoute();
+		if (cost == -1) calculateCost();
 		return cost;
 	}
 
