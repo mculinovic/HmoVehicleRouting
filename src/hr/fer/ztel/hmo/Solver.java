@@ -72,5 +72,10 @@ public class Solver {
 		}
 		return initialSolutions;
 	}
+	
+	public static Solution optimizeSolution(Solution sol) {
+		
+		return null;
+	}
 
 }

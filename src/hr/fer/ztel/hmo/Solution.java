@@ -69,6 +69,10 @@ public class Solution {
 		return closed.contains(id);
 	}
 	
+	public ProblemInstance getInstance() {
+		return instance;
+	}
+
 	@Override
 	public String toString() {
 		String sol = new String();
