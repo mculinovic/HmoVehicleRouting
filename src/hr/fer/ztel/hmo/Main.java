@@ -4,6 +4,7 @@ import java.util.List;
 
 public class Main {
 	
+	
 	public static void main(String[] args) {
 		
 		ProblemInstance instance = Utility.readInstanceFromFile("HMO-projekt_instanca_problema.txt");
@@ -13,6 +14,7 @@ public class Main {
 		
 		for (Solution s: initialSolutions) {
 			System.out.println(s.getCost());
+//			Utility.writeToFile("res-projekt.txt", s);
 		}
 	}
 

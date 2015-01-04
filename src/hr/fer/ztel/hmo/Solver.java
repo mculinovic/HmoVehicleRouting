@@ -35,7 +35,8 @@ public class Solver {
 					if (capacity == 0) break;
 				}
 				if (cycle.getUsers().size() > 0) {
-					cycle.generateInitialRoute();
+					// cycle.generateInitialRoute();
+					cycle.generateOptimalRoute();
 					initial.addCycle(cycle);
 					created++;
 				}

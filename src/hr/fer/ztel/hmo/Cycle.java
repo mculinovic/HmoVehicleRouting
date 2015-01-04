@@ -74,17 +74,52 @@ public class Cycle {
 		}
 	}
 	
-	private void calculateCost() {
-		cost = 0;
+	public void generateOptimalRoute() {
+		int[] route = new int[users.size()];
+		int i = 0;
+		for (Integer id: users) {
+			route[i++] = id;
+		}
+		permute(route, 0);
+	}
+	
+	private void permute(int[] route, int start) {
+		int size = route.length;
+
+        if (size == start + 1) {
+            List<Integer> newRoute = new ArrayList<>();
+            for (int  i = 0; i < size; ++i) {
+            	newRoute.add(route[i]);
+            }
+            int newCost = calculateCost(newRoute);
+            if (this.cost == -1 || newCost < this.cost) {
+            	this.route = newRoute;
+            	this.cost = newCost;
+            }
+            	
+        } else {
+            for (int i = start; i < size; i++) {
+            	int[] route_new = route.clone();
+                int temp = route_new[i];
+                route_new[i] = route_new[start];
+                route_new[start] = temp;
+                permute(route_new, start + 1);
+            }
+        }
+	}
+	
+	private int calculateCost(List<Integer> route) {
+		int cost = 0;
 		cost += instance.whUsersDist[warehouse][route.get(0)];
 		cost += instance.whUsersDist[warehouse][route.get(route.size() - 1)];
 		for (int i = 0; i < route.size() - 1; ++i) {
 			cost += instance.usersDist[route.get(i)][route.get(i + 1)];
 		}
+		return cost;
 	}
 
 	public int getRouteCost() {
-		if (cost == -1) calculateCost();
+		if (cost == -1) cost = calculateCost(this.route);
 		return cost;
 	}
 
