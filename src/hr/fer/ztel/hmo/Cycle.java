@@ -43,6 +43,7 @@ public class Cycle {
 		this.users = users;
 	}
 	
+	@Override
 	public boolean equals(Object that) {
 		if (that == null) return false;
 		if (!(that instanceof Cycle)) return false;
@@ -133,12 +134,13 @@ public class Cycle {
 	}
 
 	public int getRouteCost() {
-		if (cost == -1) cost = calculateCost(this.route);
+//		if (cost == -1) cost = calculateCost(this.route);
+		if (cost == -1) generateOptimalRoute();
 		return cost;
 	}
 
 	public List<Integer> getRoute() {
 		return route;
 	}
-
+	
 }

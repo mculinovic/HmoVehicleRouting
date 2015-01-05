@@ -17,7 +17,9 @@ public class Main {
 //			Utility.writeToFile("res-projekt.txt", s);
 		}
 		
-		SimulatedAnnealing.anneal(initialSolutions.get(initialSolutions.size() - 5));
+//		SimulatedAnnealing.anneal(initialSolutions.get(initialSolutions.size() - 5), 0);
+		SimulatedAnnealing.anneal(initialSolutions.get(initialSolutions.size() - 5), 1);
+		// SimulatedAnnealing.anneal(initialSolutions.get(initialSolutions.size() - 5), 0);
 		Utility.writeToFile("res-projekt.txt", initialSolutions.get(initialSolutions.size() - 5));
 		
 //		SimulatedAnnealing.anneal(initialSolutions.get(10));

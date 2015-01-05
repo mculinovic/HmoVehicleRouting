@@ -6,7 +6,7 @@ public class SimulatedAnnealing {
 	private static final double TFACTOR = 0.98;
 	private static final int STEPS = 150;
 	
-	public static void anneal(Solution sol) {
+	public static void anneal(Solution sol, int neighbour) {
 		
 		System.out.println("Annealing started");
 		System.out.println(sol.getCost());
@@ -23,7 +23,12 @@ public class SimulatedAnnealing {
 			
 			for (int j = 0; j < tempAttemptsThreshold; ++j) {
 				// generate neighborhood
-				INeighbourhood neighbourhood = new SwitchCitiesWh(sol);
+				INeighbourhood neighbourhood = null;
+				if (Math.random() < 0.5) {
+					neighbourhood = new SwitchUsersWh(sol);
+				} else {
+					neighbourhood = new SwitchUsersCycles(sol);
+				}
 
 				neighbourhood.makeMove();
 				
@@ -39,7 +44,6 @@ public class SimulatedAnnealing {
 				if (successfulAttempts >= successfulAttemptsThreshold) {
 					break;
 				}
-				// return;
 			}
 			
 			System.out.println("Temperature: " + temperature);

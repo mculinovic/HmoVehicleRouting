@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class SwitchCitiesWh implements INeighbourhood {
+public class SwitchUsersWh implements INeighbourhood {
 	
 	private Solution sol;
 	
@@ -23,7 +23,7 @@ public class SwitchCitiesWh implements INeighbourhood {
 	
 	private boolean moved;
 
-	public SwitchCitiesWh(Solution sol) {
+	public SwitchUsersWh(Solution sol) {
 		super();
 		this.sol = sol;
 		this.oldCost = sol.getCost();
@@ -138,6 +138,7 @@ public class SwitchCitiesWh implements INeighbourhood {
 		// printCycle(c2);
 	}
 
+	@SuppressWarnings("unused")
 	private void printCycle(Cycle c) {
 		String ret = new String();
 		ret += (c.getWarehouse()) + ": ";
