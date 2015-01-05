@@ -16,6 +16,12 @@ public class Main {
 			System.out.println(s.getCost());
 //			Utility.writeToFile("res-projekt.txt", s);
 		}
+		
+		SimulatedAnnealing.anneal(initialSolutions.get(initialSolutions.size() - 5));
+		Utility.writeToFile("res-projekt.txt", initialSolutions.get(initialSolutions.size() - 5));
+		
+//		SimulatedAnnealing.anneal(initialSolutions.get(10));
+//		Utility.writeToFile("res-projekt.txt", initialSolutions.get(10));
 	}
 
 }

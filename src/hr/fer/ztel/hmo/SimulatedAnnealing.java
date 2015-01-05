@@ -3,12 +3,13 @@ package hr.fer.ztel.hmo;
 public class SimulatedAnnealing {
 	
 	private static final double START_TEMPERATURE = 1000;
-	private static final double TFACTOR = 0.9;
-	private static final int STEPS = 50;
+	private static final double TFACTOR = 0.98;
+	private static final int STEPS = 150;
 	
 	public static void anneal(Solution sol) {
 		
 		System.out.println("Annealing started");
+		System.out.println(sol.getCost());
 		System.out.println("------------------");
 		
 		double temperature = START_TEMPERATURE;
@@ -22,11 +23,11 @@ public class SimulatedAnnealing {
 			
 			for (int j = 0; j < tempAttemptsThreshold; ++j) {
 				// generate neighborhood
-				Neighbourhood neighbourhood = new Neighbourhood(sol);
+				INeighbourhood neighbourhood = new SwitchCitiesWh(sol);
+
 				neighbourhood.makeMove();
 				
-				int delta = 0;
-				delta = neighbourhood.getDelta();
+				int delta = neighbourhood.getDelta();
 				
 				boolean isAcceptable = Metropolis(delta, temperature);
 				if (isAcceptable) {
@@ -38,10 +39,12 @@ public class SimulatedAnnealing {
 				if (successfulAttempts >= successfulAttemptsThreshold) {
 					break;
 				}
+				// return;
 			}
 			
 			System.out.println("Temperature: " + temperature);
 			System.out.println("Successful moves: " + successfulAttempts);
+			System.out.println("Cost: " + sol.getCost());
 			System.out.println("------------------------------");
 			
 			temperature *= TFACTOR;
@@ -51,6 +54,7 @@ public class SimulatedAnnealing {
 		}
 		
 		System.out.println("Annealing ended");
+		System.out.println(sol.getCost());
 		System.out.println("-----------------------");
 	}
 	

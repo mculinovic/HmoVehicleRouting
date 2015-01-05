@@ -13,11 +13,13 @@ public class Cycle {
 	private Set<Integer> users;
 	private List<Integer> route;
 	private int cost;
+	private int remainingCapacity;
 	
 	public Cycle(ProblemInstance instance) {
 		this.instance = instance;
 		users = new HashSet<>();
 		route = new ArrayList<>();
+		remainingCapacity = instance.getVehicleCapacity();
 		cost = -1;
 	}
 	
@@ -51,6 +53,18 @@ public class Cycle {
 
 	public void addUser(int id) {
 		users.add(id);
+		cost = -1;
+		remainingCapacity -= instance.getUsers().get(id).getDemand();
+	}
+	
+	public void removeUser(int id) {
+		users.remove(id);
+		cost = -1;
+		remainingCapacity += instance.getUsers().get(id).getDemand();
+	}
+	
+	public int getRemainingCapacity() {
+		return remainingCapacity;
 	}
 	
 	public void generateInitialRoute() {

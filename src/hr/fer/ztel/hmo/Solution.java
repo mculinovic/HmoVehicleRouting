@@ -39,6 +39,10 @@ public class Solution {
 		return cost;
 	}
 	
+	public void resetCost() {
+		cost = -1;
+	}
+	
 	private void calculateCost() {
 		Set<Integer> opened = new HashSet<Integer>();
 		cost = 0;
