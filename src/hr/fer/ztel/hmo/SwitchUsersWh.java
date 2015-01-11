@@ -51,14 +51,13 @@ public class SwitchUsersWh implements INeighbourhood {
 		}
 		
 		// System.out.println(firstWh + " : " + secondWh);
-		
+//		
 //		while (secondWh == -1) {
-//			System.out.println("drugi zapinje");
 //			int id = rand.nextInt(max);
-//		    if (id != firstWh && !sol.isClosed(id)) firstWh = id;
+//		    if (!sol.isClosed(id)) secondWh = id;
 //		}
-		
-		// cities
+//		
+		// cycles
 		List<Cycle> cycles = sol.getCycles();
 		List<Cycle> firstCycles = new ArrayList<>();
 		List<Cycle> secondCycles = new ArrayList<>();

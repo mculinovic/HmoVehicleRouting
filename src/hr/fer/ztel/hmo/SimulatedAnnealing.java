@@ -2,9 +2,14 @@ package hr.fer.ztel.hmo;
 
 public class SimulatedAnnealing {
 	
-	private static final double START_TEMPERATURE = 1000;
-	private static final double TFACTOR = 0.98;
-	private static final int STEPS = 150;
+	private static double START_TEMPERATURE = 1000;
+	private static double TFACTOR = 0.99; // 0.98
+	private static int STEPS = 200; // 150
+	
+//	private static double START_TEMPERATURE = 400;
+//	private static double TFACTOR = 0.98; // 0.98
+//	private static int STEPS = 150; // 150
+
 	
 	public static void anneal(Solution sol, int neighbour) {
 		
@@ -16,7 +21,6 @@ public class SimulatedAnnealing {
 		int tempAttemptsThreshold = sol.getInstance().getUsersNum() * 1000;
 		int successfulAttemptsThreshold = tempAttemptsThreshold / 10;
 		
-		
 		for (int i = 0; i < STEPS; ++i) {
 			
 			int successfulAttempts = 0;
@@ -24,8 +28,10 @@ public class SimulatedAnnealing {
 			for (int j = 0; j < tempAttemptsThreshold; ++j) {
 				// generate neighborhood
 				INeighbourhood neighbourhood = null;
-				if (Math.random() < 0.5) {
+				if (Math.random() < neighbour) {
 					neighbourhood = new SwitchUsersWh(sol);
+				} else if (Math.random() < 0.5){
+					neighbourhood = new Switch2UsersCycles(sol);
 				} else {
 					neighbourhood = new SwitchUsersCycles(sol);
 				}
