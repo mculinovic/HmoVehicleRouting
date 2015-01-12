@@ -60,8 +60,8 @@ public class Solver {
 		
 		for (int i = 0; i < instance.getWarehousesNum(); ++i) {
 			closed.add(i);
-			sol = generateInitialSolution(instance, closed);
-			initialSolutions.add(sol);
+//			sol = generateInitialSolution(instance, closed);
+//			initialSolutions.add(sol);
 			for (int j = i + 1; j < instance.getWarehousesNum(); ++j) {
 				closed.add(j);
 				sol = generateInitialSolution(instance, closed);

@@ -13,27 +13,15 @@ public class Main {
 		List<Solution> initialSolutions = Solver.generateInitialSolutions(instance);
 		
 		for (Solution s: initialSolutions) {
-			System.out.println(s.getCost());
-//			Utility.writeToFile("res-projekt.txt", s);
+			System.out.println("Initial: " + s.getCost());
+			// HillClimbing.optimize(s);
 		}
 		
 		// 3 je dobar, 11 isto
-		SimulatedAnnealing.anneal(initialSolutions.get(11), 1);
-		SimulatedAnnealing.anneal(initialSolutions.get(11), 0);
-		
-//		System.out.println("----------------------------------");
-//		SimulatedAnnealing.anneal(initialSolutions.get(11), 1);
-//		SimulatedAnnealing.anneal(initialSolutions.get(11), 0);
-		
-//		System.out.println("--------------------------------");
-//		SimulatedAnnealing.anneal(initialSolutions.get(11), 1);
-//		SimulatedAnnealing.anneal(initialSolutions.get(11), 0);
-		// SimulatedAnnealing.anneal(initialSolutions.get(initialSolutions.size() - 5), 1);
-		// sSimulatedAnnealing.anneal(initialSolutions.get(initialSolutions.size() - 5), 0);
-		Utility.writeToFile("res-projekt.txt", initialSolutions.get(initialSolutions.size() - 5));
-		
-//		SimulatedAnnealing.anneal(initialSolutions.get(10));
-//		Utility.writeToFile("res-projekt.txt", initialSolutions.get(10));
+		SimulatedAnnealing.anneal(initialSolutions.get(8));
+		HillClimbing.optimize(initialSolutions.get(8));
+
+		Utility.writeToFile("res-projekt.txt", initialSolutions.get(8));
 	}
 
 }

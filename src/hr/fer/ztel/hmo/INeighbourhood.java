@@ -8,4 +8,6 @@ public interface INeighbourhood {
 	
 	public int getDelta();
 
+	public void makeMove(User u1, User u2);
+
 }

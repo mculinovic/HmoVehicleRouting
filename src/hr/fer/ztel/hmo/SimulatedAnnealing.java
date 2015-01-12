@@ -2,16 +2,16 @@ package hr.fer.ztel.hmo;
 
 public class SimulatedAnnealing {
 	
-	private static double START_TEMPERATURE = 1000;
-	private static double TFACTOR = 0.99; // 0.98
-	private static int STEPS = 200; // 150
+//	private static double START_TEMPERATURE = 1000;
+//	private static double TFACTOR = 0.99; // 0.98
+//	private static int STEPS = 200; // 150
 	
-//	private static double START_TEMPERATURE = 400;
-//	private static double TFACTOR = 0.98; // 0.98
-//	private static int STEPS = 150; // 150
+	private static double START_TEMPERATURE = 400;
+	private static double TFACTOR = 0.98; // 0.98
+	private static int STEPS = 150; // 150
 
 	
-	public static void anneal(Solution sol, int neighbour) {
+	public static void anneal(Solution sol) {
 		
 		System.out.println("Annealing started");
 		System.out.println(sol.getCost());
@@ -19,7 +19,7 @@ public class SimulatedAnnealing {
 		
 		double temperature = START_TEMPERATURE;
 		int tempAttemptsThreshold = sol.getInstance().getUsersNum() * 1000;
-		int successfulAttemptsThreshold = tempAttemptsThreshold / 10;
+		int successfulAttemptsThreshold = tempAttemptsThreshold / 5;
 		
 		for (int i = 0; i < STEPS; ++i) {
 			
@@ -28,9 +28,12 @@ public class SimulatedAnnealing {
 			for (int j = 0; j < tempAttemptsThreshold; ++j) {
 				// generate neighborhood
 				INeighbourhood neighbourhood = null;
-				if (Math.random() < neighbour) {
+				double rand = Math.random();
+				if (rand < 0.1) {
+					neighbourhood = new Switch2UsersWh(sol);
+				} else if (rand < 0.3) {
 					neighbourhood = new SwitchUsersWh(sol);
-				} else if (Math.random() < 0.5){
+				} else if (rand< 0.6){
 					neighbourhood = new Switch2UsersCycles(sol);
 				} else {
 					neighbourhood = new SwitchUsersCycles(sol);

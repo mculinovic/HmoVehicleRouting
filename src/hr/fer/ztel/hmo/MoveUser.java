@@ -109,4 +109,10 @@ public class MoveUser implements INeighbourhood {
 		return sol.getCost() - oldCost;
 	}
 
+	@Override
+	public void makeMove(User u1, User u2) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

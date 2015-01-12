@@ -71,7 +71,7 @@ public class SwitchUsersCycles implements INeighbourhood {
 		int c1Capacity = c1.getRemainingCapacity() + u1.getDemand() - u2.getDemand();
 		int c2Capacity = c2.getRemainingCapacity() + u2.getDemand() - u1.getDemand();
 
-		if (c1Capacity > 0 && c2Capacity > 0) {
+		if (c1Capacity >= 0 && c2Capacity >= 0) {
 			
 			c1.removeUser(fstId);
 			c1.addUser(sndId);
@@ -115,6 +115,12 @@ public class SwitchUsersCycles implements INeighbourhood {
 	@Override
 	public int getDelta() {
 		return sol.getCost() - oldCost;
+	}
+
+	@Override
+	public void makeMove(User u1, User u2) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

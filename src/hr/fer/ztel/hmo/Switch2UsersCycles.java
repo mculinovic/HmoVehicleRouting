@@ -61,6 +61,9 @@ public class Switch2UsersCycles implements INeighbourhood {
 		List<Integer> fstUsers = new ArrayList<>(c1.getUsers());
 		List<Integer> sndUsers = new ArrayList<>(c2.getUsers());
 		
+		if (fstUsers.size() <= 1 || sndUsers.size() <= 1)
+			return;
+		
 		int fstUserId = rand.nextInt(fstUsers.size());
 		int fstUserId2 = fstUserId;
 		while (fstUserId2 == fstUserId) {
@@ -85,7 +88,7 @@ public class Switch2UsersCycles implements INeighbourhood {
 		int c1Capacity = c1.getRemainingCapacity() + u1.getDemand() - u2.getDemand() + u11.getDemand() - u22.getDemand();
 		int c2Capacity = c2.getRemainingCapacity() + u2.getDemand() - u1.getDemand() + u22.getDemand() - u11.getDemand();
 
-		if (c1Capacity > 0 && c2Capacity > 0) {
+		if (c1Capacity >= 0 && c2Capacity >= 0) {
 			
 			c1.removeUser(fstId);
 			c1.removeUser(fstId2);
@@ -128,6 +131,12 @@ public class Switch2UsersCycles implements INeighbourhood {
 	@Override
 	public int getDelta() {
 		return sol.getCost() - oldCost;
+	}
+
+	@Override
+	public void makeMove(User u1, User u2) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
