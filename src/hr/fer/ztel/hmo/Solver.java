@@ -75,8 +75,11 @@ public class Solver {
 	
 	public static void optimizeSolution(Solution sol) {
 		
-//		SimulatedAnnealingModified.anneal(initialSolutions.get(8), false, 400, 0.98, 150);
-		SimulatedAnnealing.anneal(sol);
+//		GA ga = new GA(20, 0, 10000, sol);
+//		ga.optimize();
+		SimulatedAnnealingCW.anneal(sol, 500, 0.98, 200); // 400 0.98 150
+		SimulatedAnnealingVRP.anneal(sol, 50, 0.99, 250); // 200 0.98 200
+		// SimulatedAnnealing.anneal(sol);
 		HillClimbing.optimize(sol);
 	}
 

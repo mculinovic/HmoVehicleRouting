@@ -11,7 +11,7 @@ import java.util.Random;
 import java.util.Set;
 import java.util.TreeMap;
 
-public class ClarkWright implements INeighbourhood {
+public class ClarkWrightNeighbourhood implements INeighbourhood {
 	
 	private int firstWh;
 	private int secondWh;
@@ -31,7 +31,7 @@ public class ClarkWright implements INeighbourhood {
 	private Set<Integer> usersWh1;
 	private Set<Integer> usersWh2;
 	
-	public ClarkWright(Solution sol) {
+	public ClarkWrightNeighbourhood(Solution sol) {
 		this.sol = sol;
 		this.moved = false;
 		this.oldCost = sol.getCost();
@@ -91,8 +91,10 @@ public class ClarkWright implements INeighbourhood {
 			sndOldCapacity = sol.getRemainingCapacity(secondWh);
 			sol.setRemainingCapacity(secondWh, wh2Capacity);
 			
-			savingsAlgorithm(firstWh, new ArrayList<Integer>(usersWh1));
-			savingsAlgorithm(secondWh, new ArrayList<Integer>(usersWh2));
+			newCycles.addAll(ClarkWrightAlgorithm.execute(sol, firstWh, new ArrayList<Integer>(usersWh1)));
+			newCycles.addAll(ClarkWrightAlgorithm.execute(sol, secondWh, new ArrayList<Integer>(usersWh2)));
+//			savingsAlgorithm(firstWh, new ArrayList<Integer>(usersWh1));
+//			savingsAlgorithm(secondWh, new ArrayList<Integer>(usersWh2));
 			
 			sol.setCycles(newCycles);
 			for (Cycle c: newCycles) {
@@ -103,6 +105,7 @@ public class ClarkWright implements INeighbourhood {
 
 	}
 
+	@SuppressWarnings("unused")
 	private void savingsAlgorithm(int wh, List<Integer> users) {
 		int size = users.size();
 		int s[][] = new int[size][size];

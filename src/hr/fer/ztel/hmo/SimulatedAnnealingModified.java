@@ -9,12 +9,9 @@ public class SimulatedAnnealingModified {
 		System.out.println(sol.getCost());
 		System.out.println("------------------");
 		
-//		int tempAttemptsThreshold = sol.getInstance().getUsersNum() * 1000;
-//		int successfulAttemptsThreshold = tempAttemptsThreshold / 5;
-//		if (isVRP) successfulAttemptsThreshold /= 2;
-		
-		int tempAttemptsThreshold = sol.getInstance().getUsersNum() * 50;
+		int tempAttemptsThreshold = sol.getInstance().getUsersNum() * 1000;
 		int successfulAttemptsThreshold = tempAttemptsThreshold / 5;
+		if (isVRP) successfulAttemptsThreshold /= 2;
 		
 		for (int i = 0; i < steps; ++i) {
 			
@@ -23,27 +20,22 @@ public class SimulatedAnnealingModified {
 			for (int j = 0; j < tempAttemptsThreshold; ++j) {
 				// generate neighborhood
 				INeighbourhood neighbourhood = null;
+				double rand = Math.random();
+				if (isVRP) {
+					if (rand < 0.4){
+						neighbourhood = new Switch2UsersCycles(sol);
+					} else {
+						neighbourhood = new SwitchUsersCycles(sol);
+					}
+				} else {
+					if (rand < 0.3) {
+						neighbourhood = new Switch2UsersWh(sol);
+					} else {
+						neighbourhood = new SwitchUsersWh(sol);
+					}
+				}
 				
-//				if (isVRP) {
-//					if (rand < 0.4){
-//						neighbourhood = new Switch2UsersCycles(sol);
-//					} else {
-//						neighbourhood = new SwitchUsersCycles(sol);
-//					}
-//				} else {
-//					if (rand < 0.3) {
-//						neighbourhood = new Switch2UsersWh(sol);
-//					} else {
-//						neighbourhood = new SwitchUsersWh(sol);
-//					}
-//				}
-				
-				neighbourhood = new ClarkWright(sol);
 				neighbourhood.makeMove();
-				
-//				System.out.println(sol.getCost());
-//				boolean ret = true;
-//				if (ret) return;
 				
 				int delta = neighbourhood.getDelta();
 				
@@ -59,9 +51,9 @@ public class SimulatedAnnealingModified {
 				}
 			}
 			
-//			if (!isVRP) {
-//				SimulatedAnnealingModified.anneal(sol, true, 50, 0.98, 10);
-//			}
+			if (!isVRP) {
+				SimulatedAnnealingModified.anneal(sol, true, 50, 0.98, 10);
+			}
 			
 			
 			System.out.println("Temperature: " + temperature);

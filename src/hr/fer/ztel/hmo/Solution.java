@@ -5,13 +5,19 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class Solution {
+public class Solution implements Comparable<Solution> {
 	
 	private List<Cycle> cycles;
 	private int cost;
 	private ProblemInstance instance;
 	private List<Integer> remainingCapacities;
 	private Set<Integer> closed;
+	
+	// parameters for GA
+	public int fitness;
+	public double probability;
+	public int[] usersToWh;
+	
 	
 	public Solution(ProblemInstance instance) {
 		this.instance = instance;
@@ -22,6 +28,31 @@ public class Solution {
 		for (Warehouse wh: instance.getWarehouses()) {
 			remainingCapacities.add(wh.getCapacity());
 		}
+		usersToWh = new int[instance.getUsersNum()];
+	}
+	
+	// Copy constructor
+	public Solution(Solution sol) {
+		this.cycles = new ArrayList<>();
+		for (Cycle c: sol.getCycles()) {
+			Cycle cycle = new Cycle(sol.getInstance());
+			for (Integer uid: c.getUsers()) {
+				cycle.addUser(uid);
+			}
+			this.cycles.add(cycle);
+		}
+		
+		this.cost = sol.cost;
+		this.remainingCapacities = new ArrayList<>();
+		for (Integer c: sol.remainingCapacities) {
+			this.remainingCapacities.add(c);
+		}
+		this.closed = new HashSet<>(sol.closed);
+		this.fitness = sol.fitness;
+		this.probability = sol.probability;
+		this.instance = sol.instance;
+		this.usersToWh = new int[instance.getUsersNum()];
+		System.arraycopy(sol.usersToWh, 0, this.usersToWh, 0, sol.usersToWh.length);
 	}
 
 	public List<Cycle> getCycles() {
@@ -93,6 +124,11 @@ public class Solution {
 		}
 		sol += getCost() + "\n";
 		return sol;
+	}
+
+	@Override
+	public int compareTo(Solution o) {
+		return Double.compare(this.probability, o.probability);
 	}
 	
 }
