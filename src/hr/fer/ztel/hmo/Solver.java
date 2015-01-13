@@ -73,9 +73,11 @@ public class Solver {
 		return initialSolutions;
 	}
 	
-	public static Solution optimizeSolution(Solution sol) {
+	public static void optimizeSolution(Solution sol) {
 		
-		return null;
+//		SimulatedAnnealingModified.anneal(initialSolutions.get(8), false, 400, 0.98, 150);
+		SimulatedAnnealing.anneal(sol);
+		HillClimbing.optimize(sol);
 	}
 
 }

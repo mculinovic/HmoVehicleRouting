@@ -134,13 +134,34 @@ public class Cycle {
 	}
 
 	public int getRouteCost() {
-//		if (cost == -1) cost = calculateCost(this.route);
-		if (cost == -1) generateOptimalRoute();
+		if (cost == -1) cost = calculateCost(this.route);
+		// if (cost == -1) generateOptimalRoute();
 		return cost;
 	}
 
 	public List<Integer> getRoute() {
 		return route;
+	}
+
+	public void addUserCW(int id) {
+		users.add(id);
+		cost = -1;
+		remainingCapacity -= instance.getUsers().get(id).getDemand();
+		route.add(id);
+	}
+
+	public void addRouteCW(int index, int id) {
+		users.add(id);
+		cost = -1;
+		remainingCapacity -= instance.getUsers().get(id).getDemand();
+		route.add(index, id);
+	}
+
+	public void merge(Cycle c2) {
+		List<Integer> routeC2 = c2.getRoute();
+		for (Integer id: routeC2) {
+			this.addUserCW(id);
+		}
 	}
 	
 }

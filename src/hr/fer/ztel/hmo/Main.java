@@ -12,14 +12,12 @@ public class Main {
 		
 		List<Solution> initialSolutions = Solver.generateInitialSolutions(instance);
 		
-		for (Solution s: initialSolutions) {
-			System.out.println("Initial: " + s.getCost());
-			// HillClimbing.optimize(s);
+		for (Solution sol: initialSolutions) {
+			System.out.println("Initial: " + sol.getCost());
+			// Solver.optimizeSolution(sol);
 		}
 		
-		// 3 je dobar, 11 isto
-		SimulatedAnnealing.anneal(initialSolutions.get(8));
-		HillClimbing.optimize(initialSolutions.get(8));
+		Solver.optimizeSolution(initialSolutions.get(8));
 
 		Utility.writeToFile("res-projekt.txt", initialSolutions.get(8));
 	}

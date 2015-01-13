@@ -27,7 +27,10 @@ public class Solution {
 	public List<Cycle> getCycles() {
 		return cycles;
 	}
-
+	
+	public void setCycles(List<Cycle> cycles) {
+		this.cycles = cycles;
+	}
 
 	public void addCycle(Cycle cycle) {
 		cycles.add(cycle);
