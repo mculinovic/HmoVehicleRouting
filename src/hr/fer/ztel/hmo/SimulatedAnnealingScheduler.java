@@ -1,6 +1,6 @@
 package hr.fer.ztel.hmo;
 
-public class SimulatedAnnealingVRP {
+public class SimulatedAnnealingScheduler {
 	
 	public static void anneal(Solution sol, double temperature,
 							  double tfactor, int steps) {
@@ -21,9 +21,9 @@ public class SimulatedAnnealingVRP {
 				INeighbourhood neighbourhood = null;
 				double rand = Math.random();
 				if (rand < 0.4){
-					neighbourhood = new Switch2UsersCycles(sol);
+					neighbourhood = new Switch2UsersWh(sol);
 				} else {
-					neighbourhood = new SwitchUsersCycles(sol);
+					neighbourhood = new SwitchUsersWh(sol);
 				}
 				
 				neighbourhood.makeMove();

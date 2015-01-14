@@ -17,6 +17,7 @@ public class Solution implements Comparable<Solution> {
 	public int fitness;
 	public double probability;
 	public int[] usersToWh;
+	public int GAcost;
 	
 	
 	public Solution(ProblemInstance instance) {

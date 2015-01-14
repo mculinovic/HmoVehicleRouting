@@ -42,9 +42,10 @@ public class MoveUser implements INeighbourhood {
 		User u1 = sol.getInstance().getUsers().get(fstId);
 		
 		for (Cycle c: cycles) {
+			if (c == c1) continue;
 			int wh = c.getWarehouse();
-			if (c.getRemainingCapacity() - u1.getDemand() > 0
-				&& sol.getRemainingCapacity(wh) - u1.getDemand() > 0) {
+			if (c.getRemainingCapacity() - u1.getDemand() >= 0
+				&& sol.getRemainingCapacity(wh) - u1.getDemand() >= 0) {
 				c2 = c;
 				moved = true;
 				break;
@@ -60,7 +61,7 @@ public class MoveUser implements INeighbourhood {
 		int wh1Capacity = sol.getRemainingCapacity(firstWh) + u1.getDemand();
 		int wh2Capacity = sol.getRemainingCapacity(secondWh) - u1.getDemand();
 
-		if (c1Capacity > 0 && c2Capacity > 0 && wh1Capacity > 0 && wh2Capacity > 0) {
+		if (c1Capacity >= 0 && c2Capacity >= 0 && wh1Capacity >= 0 && wh2Capacity >= 0) {
 			
 			c1.removeUser(fstId);
 			fstOldCapacity = sol.getRemainingCapacity(firstWh);
@@ -74,8 +75,6 @@ public class MoveUser implements INeighbourhood {
 
 			moved = true;
 			sol.resetCost();
-			
-			System.out.println("move made");
 		}
 	}
 

@@ -27,7 +27,7 @@ public class GA {
 		rand = new Random(System.currentTimeMillis());
 	}
 	
-	public void optimize() {
+	public Solution optimize() {
 		
 		System.out.println("---------------------------");
 		System.out.println("GA started");
@@ -37,7 +37,9 @@ public class GA {
 		Solution[] population = createPopulation(sol);
 		evaluate(population);
 		int generation = 1;
-		System.out.println(generation + " : " + best.getCost());
+		System.out.println(generation + " : " + best.GAcost);
+//		boolean ret = true;
+//		if (ret) return;
 		
 		while (generation < numIterations - 1) {
 			Solution[] next = new Solution[numCromosome];
@@ -58,9 +60,18 @@ public class GA {
 			population = next;
 			evaluate(population);
 			++generation;
-			if (generation % 1000 == 0) System.out.println(generation + " : " + best.getCost());		
+//			if (generation % 1000 == 0) System.out.println(generation + " : " + best.getCost());
+			System.out.println(generation + " : " + best.GAcost);
 		}
-	
+		
+		createRoutes(best);
+		for (Cycle c: best.getCycles()) {
+			c.generateOptimalRoute();
+		}
+		System.out.println("-----------------------------");
+		System.out.println("GA finished: " + best.getCost());
+		System.out.println("------------------------------");
+		return best;
 	}
 	
 	private Solution crossover(Solution s1, Solution s2) {
@@ -69,7 +80,8 @@ public class GA {
 		for (int i = idx; i < s1.usersToWh.length; ++i) {
 			s.usersToWh[i] = s2.usersToWh[i];
 		}
-		createRoutes(s);
+		calculateCost(s);
+		// createRoutes(s);
 		return s;
 	}
 
@@ -84,11 +96,13 @@ public class GA {
 			}
 		}
 		
-		createRoutes(sol);
+		calculateCost(sol);
+		
+		// createRoutes(sol);
 		
 		for (int i = 1; i < numCromosome; ++i) {
 			Solution init = new Solution(sol);
-			for (int j = 0; j < 30; ++j) {
+			for (int j = 0; j < 10; ++j) {
 				int id = rand.nextInt(init.usersToWh.length);
 				int wh = -1;
 				while (wh == -1) {
@@ -98,10 +112,19 @@ public class GA {
 				init.usersToWh[id] = wh;
 			}
 			population[i] = init;
-			createRoutes(init);
+			calculateCost(init);
+			// createRoutes(init);
 		}
 
 		return population;
+	}
+
+	private void calculateCost(Solution sol) {
+		sol.GAcost = 0;
+		for (int i = 0; i < sol.usersToWh.length; ++i) {
+			sol.GAcost += sol.getInstance().whUsersDist[sol.usersToWh[i]][i];
+		}
+		
 	}
 
 	private void createRoutes(Solution sol) {
@@ -121,8 +144,10 @@ public class GA {
 		for (Cycle c: cycles) {
 			c.generateOptimalRoute();
 		}
+		
 		sol.setCycles(cycles);
 		sol.resetCost();
+		//SimulatedAnnealingVRP.anneal(sol, 50, 0.98, 10);
 	}
 
 	private void calculateProbabilites(Solution[] population) {
@@ -141,9 +166,10 @@ public class GA {
 
 		int maxCost = 0;
 		for (Solution s : population) {
-			int cost = s.getCost();
-			if ((best == null || best.getCost() > cost) && isFeasible(s)) {
+			int cost = s.GAcost;
+			if ((best == null || best.GAcost > cost) && isFeasible(s)) {
 				best = new Solution(s);
+				best.GAcost = cost;
 			}
 
 			if (cost > maxCost) {
@@ -153,7 +179,7 @@ public class GA {
 		
 		int totalFitness = 0;
 		for (Solution s: population) {
-			s.fitness = maxCost - s.getCost();
+			s.fitness = maxCost - s.GAcost;
 			totalFitness += s.fitness;
 		}
 		
@@ -167,15 +193,24 @@ public class GA {
 
 	private boolean isFeasible(Solution s) {
 		int[] capacities = new int[s.getInstance().getWarehousesNum()];
-		for (Cycle c: s.getCycles()) {
-			for (Integer uid: c.getUsers()) {
-				User u = s.getInstance().getUsers().get(uid);
-				capacities[c.getWarehouse()] += u.getDemand();
-				if (capacities[c.getWarehouse()] > s.getInstance().getWarehouses().get(c.getWarehouse()).getCapacity()) {
-					return false;
-				}
+		
+		for (int i = 0; i < s.usersToWh.length; ++i) {
+			User u = s.getInstance().getUsers().get(i);
+			capacities[s.usersToWh[i]] += u.getDemand();
+			if (capacities[s.usersToWh[i]] > s.getInstance().getWarehouses().get(s.usersToWh[i]).getCapacity()) {
+				return false;
 			}
 		}
+		
+//		for (Cycle c: s.getCycles()) {
+//			for (Integer uid: c.getUsers()) {
+//				User u = s.getInstance().getUsers().get(uid);
+//				capacities[c.getWarehouse()] += u.getDemand();
+//				if (capacities[c.getWarehouse()] > s.getInstance().getWarehouses().get(c.getWarehouse()).getCapacity()) {
+//					return false;
+//				}
+//			}
+//		}
 		return true;
 	}
 
@@ -190,7 +225,8 @@ public class GA {
 			}
 			s.usersToWh[id] = wh;
 		}
-		createRoutes(s);
+		calculateCost(s);
+		// createRoutes(s);
 	}
 
 	

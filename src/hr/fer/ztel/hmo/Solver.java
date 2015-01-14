@@ -75,12 +75,16 @@ public class Solver {
 	
 	public static void optimizeSolution(Solution sol) {
 		
-//		GA ga = new GA(20, 0, 10000, sol);
-//		ga.optimize();
-		SimulatedAnnealingCW.anneal(sol, 500, 0.98, 200); // 400 0.98 150
-		SimulatedAnnealingVRP.anneal(sol, 50, 0.99, 250); // 200 0.98 200
-		// SimulatedAnnealing.anneal(sol);
-		HillClimbing.optimize(sol);
+		GA ga = new GA(20, 0, 500000, sol);
+		Solution clusters = ga.optimize();
+		Utility.writeToFile("res-projekt-GA.txt", clusters);
+//		HillClimbing.optimize(sol);
+		SimulatedAnnealingCW.anneal(clusters, 400, 0.98, 150); // 400 0.98 150, 500 0.98 200
+		SimulatedAnnealing.anneal(clusters);
+//		// SimulatedAnnealingScheduler.anneal(sol, 1000, 0.99, 400);
+//		SimulatedAnnealingVRP.anneal(sol, 200, 0.98, 200); // 200 0.98 200
+		HillClimbing.optimize(clusters);
+		Utility.writeToFile("res-projekt.txt", clusters);
 	}
 
 }

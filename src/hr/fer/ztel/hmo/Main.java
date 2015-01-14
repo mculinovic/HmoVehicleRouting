@@ -19,7 +19,7 @@ public class Main {
 		
 		Solver.optimizeSolution(initialSolutions.get(8));
 
-		Utility.writeToFile("res-projekt.txt", initialSolutions.get(8));
+		// Utility.writeToFile("res-projekt.txt", initialSolutions.get(8));
 	}
 
 }

@@ -26,6 +26,16 @@ public class HillClimbing {
 					} 
 				}
 			}
+			
+//			for (int i = 0; i < users.size() * 100; ++i) {
+//				neighbourhood = new MoveUser(sol);
+//				if (neighbourhood.getDelta() < 0) {
+//					moved = true;
+//				} else {
+//					neighbourhood.reverse();
+//				}
+//			}
+			
 			if (!moved) break;
 		}
 		
