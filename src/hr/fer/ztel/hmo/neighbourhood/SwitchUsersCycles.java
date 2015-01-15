@@ -93,8 +93,7 @@ public class SwitchUsersCycles implements INeighbourhood {
 	@Override
 	public void reverse() {
 		if (!moved) return;
-		
-		// System.out.println("REVERSE");
+
 		c1.removeUser(sndId);
 		c1.addUser(fstId);
 		c1.generateOptimalRoute();

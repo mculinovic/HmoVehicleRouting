@@ -19,13 +19,10 @@ public class Main {
 		
 		for (Solution sol: initialSolutions) {
 			System.out.println("Initial: " + sol.getCost());
-			// Solver.optimizeSolution(sol);
 		}
+		// vrtimo samo na ovom jer se pokazalo najboljim
 		Utility.writeToFile("res-pocetno.txt", initialSolutions.get(8));
 		Solver.optimizeSolution(initialSolutions.get(8));
-		
-
-		// Utility.writeToFile("res-projekt.txt", initialSolutions.get(8));
 	}
 
 }

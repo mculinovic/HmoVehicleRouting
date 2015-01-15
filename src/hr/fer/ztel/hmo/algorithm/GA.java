@@ -42,8 +42,6 @@ public class GA {
 		evaluate(population);
 		int generation = 1;
 		System.out.println(generation + " : " + best.GAcost);
-//		boolean ret = true;
-//		if (ret) return;
 		
 		while (generation < numIterations - 1) {
 			Solution[] next = new Solution[numCromosome];
@@ -65,7 +63,6 @@ public class GA {
 			evaluate(population);
 			++generation;
 			if (generation % 10000 == 0) System.out.println(generation + " : " + best.GAcost);
-//			System.out.println(generation + " : " + best.GAcost);
 		}
 		
 		createRoutes(best);
@@ -85,7 +82,6 @@ public class GA {
 			s.usersToWh[i] = s2.usersToWh[i];
 		}
 		calculateCost(s);
-		// createRoutes(s);
 		return s;
 	}
 
@@ -102,8 +98,6 @@ public class GA {
 		
 		calculateCost(sol);
 		
-		// createRoutes(sol);
-		
 		for (int i = 1; i < numCromosome; ++i) {
 			Solution init = new Solution(sol);
 			for (int j = 0; j < 10; ++j) {
@@ -117,7 +111,6 @@ public class GA {
 			}
 			population[i] = init;
 			calculateCost(init);
-			// createRoutes(init);
 		}
 
 		return population;
@@ -151,7 +144,6 @@ public class GA {
 		
 		sol.setCycles(cycles);
 		sol.resetCost();
-		//SimulatedAnnealingVRP.anneal(sol, 50, 0.98, 10);
 	}
 
 	private void calculateProbabilites(Solution[] population) {
@@ -205,16 +197,6 @@ public class GA {
 				return false;
 			}
 		}
-		
-//		for (Cycle c: s.getCycles()) {
-//			for (Integer uid: c.getUsers()) {
-//				User u = s.getInstance().getUsers().get(uid);
-//				capacities[c.getWarehouse()] += u.getDemand();
-//				if (capacities[c.getWarehouse()] > s.getInstance().getWarehouses().get(c.getWarehouse()).getCapacity()) {
-//					return false;
-//				}
-//			}
-//		}
 		return true;
 	}
 
@@ -230,13 +212,11 @@ public class GA {
 			s.usersToWh[id] = wh;
 		}
 		calculateCost(s);
-		// createRoutes(s);
 	}
 
 	
 	public int select(Solution[] populacija) {
-		
-		//Arrays.sort(populacija);
+
 		double probability = Math.random();
 		for (int i = 0; i < populacija.length; i++) {
 			Solution sol = populacija[i];

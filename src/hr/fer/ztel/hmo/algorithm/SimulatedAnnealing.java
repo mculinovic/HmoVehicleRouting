@@ -9,10 +9,6 @@ import hr.fer.ztel.hmo.solution.Solution;
 
 public class SimulatedAnnealing {
 	
-//	private static double START_TEMPERATURE = 1000; // 400
-//	private static double TFACTOR = 0.99; // 0.98
-//	private static int STEPS = 500; // 150
-	
 	private static double START_TEMPERATURE = 400;
 	private static double TFACTOR = 0.98; // 0.98
 	private static int STEPS = 150; // 150
@@ -40,8 +36,6 @@ public class SimulatedAnnealing {
 					neighbourhood = new Switch2UsersWh(sol);
 				} else if (rand < 0.4) { // 0.3
 					neighbourhood = new SwitchUsersWh(sol);
-//				} else if (rand < 0.5) {
-//					neighbourhood = new MoveUser(sol);
 				} else if (rand< 0.6){
 					neighbourhood = new Switch2UsersCycles(sol);
 				} else {

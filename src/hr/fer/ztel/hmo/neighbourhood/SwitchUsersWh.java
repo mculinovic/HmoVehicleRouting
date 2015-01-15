@@ -54,13 +54,6 @@ public class SwitchUsersWh implements INeighbourhood {
 			}
 		}
 		
-		// System.out.println(firstWh + " : " + secondWh);
-//		
-//		while (secondWh == -1) {
-//			int id = rand.nextInt(max);
-//		    if (!sol.isClosed(id)) secondWh = id;
-//		}
-//		
 		// cycles
 		List<Cycle> cycles = sol.getCycles();
 		List<Cycle> firstCycles = new ArrayList<>();
@@ -85,13 +78,9 @@ public class SwitchUsersWh implements INeighbourhood {
 		fstId = fstUsers.get(fstUserId);
 		sndId = sndUsers.get(sndUserId);
 		
-		// System.out.println(fstId + " : " + sndId);
-		
 		User u1 = sol.getInstance().getUsers().get(fstId);
 		User u2 = sol.getInstance().getUsers().get(sndId);
-		
-//		printCycle(c1);
-//		printCycle(c2);
+
 		
 		int c1Capacity = c1.getRemainingCapacity() + u1.getDemand() - u2.getDemand();
 		int c2Capacity = c2.getRemainingCapacity() + u2.getDemand() - u1.getDemand();
@@ -111,12 +100,10 @@ public class SwitchUsersWh implements INeighbourhood {
 			sndOldCapacity = sol.getRemainingCapacity(secondWh);
 			sol.setRemainingCapacity(secondWh, wh2Capacity);
 			c2.generateOptimalRoute();
-			// System.out.println("Move made");
+
 			moved = true;
 			sol.resetCost();
 			
-//			printCycle(c1);
-//			printCycle(c2);
 		}
 	}
 
@@ -124,7 +111,6 @@ public class SwitchUsersWh implements INeighbourhood {
 	public void reverse() {
 		if (!moved) return;
 		
-		// System.out.println("REVERSE");
 		c1.removeUser(sndId);
 		c1.addUser(fstId);
 		sol.setRemainingCapacity(firstWh, fstOldCapacity);
@@ -136,9 +122,6 @@ public class SwitchUsersWh implements INeighbourhood {
 		c2.generateOptimalRoute();
 		
 		sol.resetCost();
-		
-		// printCycle(c1);
-		// printCycle(c2);
 	}
 
 	@SuppressWarnings("unused")
