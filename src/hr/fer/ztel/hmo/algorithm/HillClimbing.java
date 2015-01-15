@@ -1,4 +1,9 @@
-package hr.fer.ztel.hmo;
+package hr.fer.ztel.hmo.algorithm;
+
+import hr.fer.ztel.hmo.neighbourhood.INeighbourhood;
+import hr.fer.ztel.hmo.neighbourhood.SwitchUsersWh;
+import hr.fer.ztel.hmo.problem.User;
+import hr.fer.ztel.hmo.solution.Solution;
 
 import java.util.List;
 

@@ -1,4 +1,8 @@
-package hr.fer.ztel.hmo;
+package hr.fer.ztel.hmo.algorithm;
+
+import hr.fer.ztel.hmo.problem.Cycle;
+import hr.fer.ztel.hmo.problem.User;
+import hr.fer.ztel.hmo.solution.Solution;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -60,8 +64,8 @@ public class GA {
 			population = next;
 			evaluate(population);
 			++generation;
-//			if (generation % 1000 == 0) System.out.println(generation + " : " + best.getCost());
-			System.out.println(generation + " : " + best.GAcost);
+			if (generation % 10000 == 0) System.out.println(generation + " : " + best.GAcost);
+//			System.out.println(generation + " : " + best.GAcost);
 		}
 		
 		createRoutes(best);

@@ -1,4 +1,9 @@
-package hr.fer.ztel.hmo;
+package hr.fer.ztel.hmo.utility;
+
+import hr.fer.ztel.hmo.problem.ProblemInstance;
+import hr.fer.ztel.hmo.problem.User;
+import hr.fer.ztel.hmo.problem.Warehouse;
+import hr.fer.ztel.hmo.solution.Solution;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;

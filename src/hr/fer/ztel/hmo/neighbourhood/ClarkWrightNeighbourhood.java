@@ -1,4 +1,9 @@
-package hr.fer.ztel.hmo;
+package hr.fer.ztel.hmo.neighbourhood;
+
+import hr.fer.ztel.hmo.algorithm.ClarkWrightAlgorithm;
+import hr.fer.ztel.hmo.problem.Cycle;
+import hr.fer.ztel.hmo.problem.User;
+import hr.fer.ztel.hmo.solution.Solution;
 
 import java.util.ArrayList;
 import java.util.Comparator;

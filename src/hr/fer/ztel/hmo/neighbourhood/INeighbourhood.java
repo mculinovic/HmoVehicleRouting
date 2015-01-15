@@ -1,4 +1,6 @@
-package hr.fer.ztel.hmo;
+package hr.fer.ztel.hmo.neighbourhood;
+
+import hr.fer.ztel.hmo.problem.User;
 
 public interface INeighbourhood {
 	

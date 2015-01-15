@@ -1,4 +1,14 @@
-package hr.fer.ztel.hmo;
+package hr.fer.ztel.hmo.solution;
+
+import hr.fer.ztel.hmo.algorithm.GA;
+import hr.fer.ztel.hmo.algorithm.HillClimbing;
+import hr.fer.ztel.hmo.algorithm.SimulatedAnnealing;
+import hr.fer.ztel.hmo.algorithm.SimulatedAnnealingCW;
+import hr.fer.ztel.hmo.problem.Cycle;
+import hr.fer.ztel.hmo.problem.ProblemInstance;
+import hr.fer.ztel.hmo.problem.User;
+import hr.fer.ztel.hmo.problem.Warehouse;
+import hr.fer.ztel.hmo.utility.Utility;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -79,7 +89,7 @@ public class Solver {
 		Solution clusters = ga.optimize();
 		Utility.writeToFile("res-projekt-GA.txt", clusters);
 //		HillClimbing.optimize(sol);
-		SimulatedAnnealingCW.anneal(clusters, 400, 0.98, 150); // 400 0.98 150, 500 0.98 200
+		SimulatedAnnealingCW.anneal(clusters, 400, 0.9356, 150); // 400 0.98 150, 500 0.98 200
 		SimulatedAnnealing.anneal(clusters);
 //		// SimulatedAnnealingScheduler.anneal(sol, 1000, 0.99, 400);
 //		SimulatedAnnealingVRP.anneal(sol, 200, 0.98, 200); // 200 0.98 200

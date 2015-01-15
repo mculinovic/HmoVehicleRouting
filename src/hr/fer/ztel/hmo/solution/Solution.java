@@ -1,4 +1,8 @@
-package hr.fer.ztel.hmo;
+package hr.fer.ztel.hmo.solution;
+
+import hr.fer.ztel.hmo.problem.Cycle;
+import hr.fer.ztel.hmo.problem.ProblemInstance;
+import hr.fer.ztel.hmo.problem.Warehouse;
 
 import java.util.ArrayList;
 import java.util.HashSet;

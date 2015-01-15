@@ -1,4 +1,4 @@
-package hr.fer.ztel.hmo;
+package hr.fer.ztel.hmo.problem;
 
 public class User {
 	

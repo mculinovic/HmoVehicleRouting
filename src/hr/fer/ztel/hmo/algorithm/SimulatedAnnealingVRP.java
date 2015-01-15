@@ -1,4 +1,9 @@
-package hr.fer.ztel.hmo;
+package hr.fer.ztel.hmo.algorithm;
+
+import hr.fer.ztel.hmo.neighbourhood.INeighbourhood;
+import hr.fer.ztel.hmo.neighbourhood.Switch2UsersCycles;
+import hr.fer.ztel.hmo.neighbourhood.SwitchUsersCycles;
+import hr.fer.ztel.hmo.solution.Solution;
 
 public class SimulatedAnnealingVRP {
 	

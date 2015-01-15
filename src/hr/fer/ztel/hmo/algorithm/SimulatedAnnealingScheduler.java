@@ -1,8 +1,13 @@
-package hr.fer.ztel.hmo;
+package hr.fer.ztel.hmo.algorithm;
 
-public class SimulatedAnnealingModified {
+import hr.fer.ztel.hmo.neighbourhood.INeighbourhood;
+import hr.fer.ztel.hmo.neighbourhood.Switch2UsersWh;
+import hr.fer.ztel.hmo.neighbourhood.SwitchUsersWh;
+import hr.fer.ztel.hmo.solution.Solution;
+
+public class SimulatedAnnealingScheduler {
 	
-	public static void anneal(Solution sol, boolean isVRP, double temperature,
+	public static void anneal(Solution sol, double temperature,
 							  double tfactor, int steps) {
 		
 		System.out.println("Annealing started");
@@ -10,8 +15,7 @@ public class SimulatedAnnealingModified {
 		System.out.println("------------------");
 		
 		int tempAttemptsThreshold = sol.getInstance().getUsersNum() * 1000;
-		int successfulAttemptsThreshold = tempAttemptsThreshold / 5;
-		if (isVRP) successfulAttemptsThreshold /= 2;
+		int successfulAttemptsThreshold = tempAttemptsThreshold / 2;
 		
 		for (int i = 0; i < steps; ++i) {
 			
@@ -21,27 +25,20 @@ public class SimulatedAnnealingModified {
 				// generate neighborhood
 				INeighbourhood neighbourhood = null;
 				double rand = Math.random();
-				if (isVRP) {
-					if (rand < 0.4){
-						neighbourhood = new Switch2UsersCycles(sol);
-					} else {
-						neighbourhood = new SwitchUsersCycles(sol);
-					}
+				if (rand < 0.4){
+					neighbourhood = new Switch2UsersWh(sol);
 				} else {
-					if (rand < 0.3) {
-						neighbourhood = new Switch2UsersWh(sol);
-					} else {
-						neighbourhood = new SwitchUsersWh(sol);
-					}
+					neighbourhood = new SwitchUsersWh(sol);
 				}
 				
 				neighbourhood.makeMove();
 				
 				int delta = neighbourhood.getDelta();
+				if (delta == 0) j--;
 				
 				boolean isAcceptable = Metropolis(delta, temperature);
 				if (isAcceptable) {
-					successfulAttempts++;
+					if (delta != 0) successfulAttempts++;
 				} else {
 					neighbourhood.reverse();
 				}
@@ -49,10 +46,6 @@ public class SimulatedAnnealingModified {
 				if (successfulAttempts >= successfulAttemptsThreshold) {
 					break;
 				}
-			}
-			
-			if (!isVRP) {
-				SimulatedAnnealingModified.anneal(sol, true, 50, 0.98, 10);
 			}
 			
 			

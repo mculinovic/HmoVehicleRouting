@@ -1,8 +1,15 @@
-package hr.fer.ztel.hmo;
+package hr.fer.ztel.hmo.algorithm;
 
-public class SimulatedAnnealingScheduler {
+import hr.fer.ztel.hmo.neighbourhood.INeighbourhood;
+import hr.fer.ztel.hmo.neighbourhood.Switch2UsersCycles;
+import hr.fer.ztel.hmo.neighbourhood.Switch2UsersWh;
+import hr.fer.ztel.hmo.neighbourhood.SwitchUsersCycles;
+import hr.fer.ztel.hmo.neighbourhood.SwitchUsersWh;
+import hr.fer.ztel.hmo.solution.Solution;
+
+public class SimulatedAnnealingModified {
 	
-	public static void anneal(Solution sol, double temperature,
+	public static void anneal(Solution sol, boolean isVRP, double temperature,
 							  double tfactor, int steps) {
 		
 		System.out.println("Annealing started");
@@ -10,7 +17,8 @@ public class SimulatedAnnealingScheduler {
 		System.out.println("------------------");
 		
 		int tempAttemptsThreshold = sol.getInstance().getUsersNum() * 1000;
-		int successfulAttemptsThreshold = tempAttemptsThreshold / 2;
+		int successfulAttemptsThreshold = tempAttemptsThreshold / 5;
+		if (isVRP) successfulAttemptsThreshold /= 2;
 		
 		for (int i = 0; i < steps; ++i) {
 			
@@ -20,20 +28,27 @@ public class SimulatedAnnealingScheduler {
 				// generate neighborhood
 				INeighbourhood neighbourhood = null;
 				double rand = Math.random();
-				if (rand < 0.4){
-					neighbourhood = new Switch2UsersWh(sol);
+				if (isVRP) {
+					if (rand < 0.4){
+						neighbourhood = new Switch2UsersCycles(sol);
+					} else {
+						neighbourhood = new SwitchUsersCycles(sol);
+					}
 				} else {
-					neighbourhood = new SwitchUsersWh(sol);
+					if (rand < 0.3) {
+						neighbourhood = new Switch2UsersWh(sol);
+					} else {
+						neighbourhood = new SwitchUsersWh(sol);
+					}
 				}
 				
 				neighbourhood.makeMove();
 				
 				int delta = neighbourhood.getDelta();
-				if (delta == 0) j--;
 				
 				boolean isAcceptable = Metropolis(delta, temperature);
 				if (isAcceptable) {
-					if (delta != 0) successfulAttempts++;
+					successfulAttempts++;
 				} else {
 					neighbourhood.reverse();
 				}
@@ -41,6 +56,10 @@ public class SimulatedAnnealingScheduler {
 				if (successfulAttempts >= successfulAttemptsThreshold) {
 					break;
 				}
+			}
+			
+			if (!isVRP) {
+				SimulatedAnnealingModified.anneal(sol, true, 50, 0.98, 10);
 			}
 			
 			

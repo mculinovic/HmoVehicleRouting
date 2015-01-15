@@ -1,54 +1,37 @@
-package hr.fer.ztel.hmo;
+package hr.fer.ztel.hmo.algorithm;
 
-public class SimulatedAnnealing {
-	
-//	private static double START_TEMPERATURE = 1000; // 400
-//	private static double TFACTOR = 0.99; // 0.98
-//	private static int STEPS = 500; // 150
-	
-	private static double START_TEMPERATURE = 400;
-	private static double TFACTOR = 0.98; // 0.98
-	private static int STEPS = 150; // 150
+import hr.fer.ztel.hmo.neighbourhood.ClarkWrightNeighbourhood;
+import hr.fer.ztel.hmo.neighbourhood.INeighbourhood;
+import hr.fer.ztel.hmo.solution.Solution;
 
+public class SimulatedAnnealingCW {
 	
-	public static void anneal(Solution sol) {
+	public static void anneal(Solution sol, double temperature,
+							  double tfactor, int steps) {
 		
 		System.out.println("Annealing started");
 		System.out.println(sol.getCost());
 		System.out.println("------------------");
 		
-		double temperature = START_TEMPERATURE;
-		int tempAttemptsThreshold = sol.getInstance().getUsersNum() * 1000;
-		int successfulAttemptsThreshold = tempAttemptsThreshold / 5; // /5
+		int tempAttemptsThreshold = sol.getInstance().getUsersNum() * 50;
+		int successfulAttemptsThreshold = tempAttemptsThreshold / 5;
 		
-		for (int i = 0; i < STEPS; ++i) {
+		for (int i = 0; i < steps; ++i) {
 			
 			int successfulAttempts = 0;
 			
 			for (int j = 0; j < tempAttemptsThreshold; ++j) {
 				// generate neighborhood
 				INeighbourhood neighbourhood = null;
-				double rand = Math.random();
-				if (rand < 0.2) { // 0.1
-					neighbourhood = new Switch2UsersWh(sol);
-				} else if (rand < 0.4) { // 0.3
-					neighbourhood = new SwitchUsersWh(sol);
-//				} else if (rand < 0.5) {
-//					neighbourhood = new MoveUser(sol);
-				} else if (rand< 0.6){
-					neighbourhood = new Switch2UsersCycles(sol);
-				} else {
-					neighbourhood = new SwitchUsersCycles(sol);
-				}
-
+				
+				neighbourhood = new ClarkWrightNeighbourhood(sol);
 				neighbourhood.makeMove();
 				
 				int delta = neighbourhood.getDelta();
-				if (delta == 0) --j;
 				
 				boolean isAcceptable = Metropolis(delta, temperature);
 				if (isAcceptable) {
-					if (delta != 0) successfulAttempts++;
+					successfulAttempts++;
 				} else {
 					neighbourhood.reverse();
 				}
@@ -58,12 +41,13 @@ public class SimulatedAnnealing {
 				}
 			}
 			
+			
 			System.out.println("Temperature: " + temperature);
 			System.out.println("Successful moves: " + successfulAttempts);
 			System.out.println("Cost: " + sol.getCost());
 			System.out.println("------------------------------");
 			
-			temperature *= TFACTOR;
+			temperature *= tfactor;
 			if (successfulAttempts == 0) {
 				break;
 			}

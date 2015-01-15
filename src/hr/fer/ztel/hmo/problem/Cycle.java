@@ -1,4 +1,4 @@
-package hr.fer.ztel.hmo;
+package hr.fer.ztel.hmo.problem;
 
 import java.util.ArrayList;
 import java.util.HashSet;
